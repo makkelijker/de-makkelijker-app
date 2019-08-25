@@ -2,11 +2,319 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Hello World!</title>
-    <link rel="stylesheet" href="index.css">
+
+    <title>Nummers in blauw</title>
+    <link rel="stylesheet" href="lib/bootstrap.min.css" />
+
+    <link title="Standaard" rel="stylesheet" type="text/css" href="css/content-ih.css" media="screen" />
+    <link rel="stylesheet" href="css/index.css">
+
+    <script type="text/javascript" src="lib/jquery-3.2.1.min.js"></script>
+
   </head>
   <body>
-    <h1>💖 Hello World!</h1>
-    <p>Welcome to your Electron application.</p>
+
+
+    <div class="content">
+
+      <form id="frmBerekening" action="" method="post" onsubmit="return false">
+        <div class="line">
+          <div class="unit size34">
+
+            <div id="divVragen" class="clBGFormulier" style="display: block;">
+
+              <!--
+                <fieldset id="fsKeuze">
+                <legend>Wat wilt u weten?</legend>
+                <p><input type="radio" name="radioWelke" id="radioNaarKenmerk" value="aanslagNAARkenmerk" class="clRadioBtn" onclick="doKeuzeChange(this.value)"> uw betalingskenmerk</p>
+                <p><input type="radio" name="radioWelke" id="radioNaarAanslag" value="kenmerkNAARaanslag" class="clRadioBtn" onclick="doKeuzeChange(this.value)"> uw aangifte-, aanslag- of beschikkingsnummer</p>
+                </fieldset>
+              -->
+
+
+
+              <!--
+                <fieldset id="fsInvoer1">
+                <legend>Hoe wilt u het betalingskenmerk opzoeken?</legend>
+                <p><input type="radio" name="radioAangifteOfBtwLh" id="radioAangifte" value="aangifteNAARkenmerk" class="clRadioBtn" onclick="doKeuzeNaarKenmerkChange(this)"> van aangifte-, aanslag- of beschikkingsnummer naar betalingskenmerk</p>
+                <p><input type="radio" name="radioAangifteOfBtwLh" id="radioBtwLh" value="btwlhNAARkenmerk" class="clRadioBtn" onclick="doKeuzeNaarKenmerkChange(this)">  van btw-nummer of loonheffingennummer naar betalingskenmerk</p>
+                </fieldset>
+              -->
+
+              <!--
+                <fieldset id="fsBtwLhNaarKenmerk">
+                <legend>Van btw-nummer of loonheffingennummer naar betalingskenmerk</legend>
+                <p>
+                <label>Btw- of loonheffingennummer</label>
+                <input type="text" value="" name="inputBtwLh" id="inputBtwLh" class="inputFinr" size="12" maxlength="12" onblur="CheckBtwLh(this, false);" onkeyup="event.keyCode == 13 ? CheckBtwLh(this, true) : this.value = CheckBtwLh(this, false)">
+                </p>
+                <p id="BtwLhJaar">
+                <label>Aangiftejaar</label>
+                <select name="selectBtwLhJaar" id="selectBtwLhJaar" class="selectMiddelcode" onchange="doBtwLhJaar(this)">
+                <option value="">Wordt gevuld vanuit JS</option>
+                </select>
+                </p>
+                <p id="BtwLhFrequentie">
+                <label>Selecteer aangiftefrequentie</label>
+                <select name="selectBtwLhFrequentie" id="selectBtwLhFrequentie" class="selectWide" onchange="doBtwLhFrequentie(this)">
+                <option value="">Wordt gevuld vanuit JS, function vulBtwLhFrequentie</option>
+                </select>
+                </p>
+                <p id="BtwLhAangiftetijdvak">
+                <label>Selecteer aangiftetijdvak</label>
+                <select name="selectBtwLhAangiftetijdvak" id="selectBtwLhAangiftetijdvak" class="selectWide" onchange="doBtwLhAangiftetijdvak(this)">
+                <option value="">Wordt gevuld vanuit JS</option>
+                </select>
+                </p>
+                <p id="BtwLhGenereer" class="clButtonLine">
+                <label>&nbsp;</label>
+                <input type="button" value="Geef betalingskenmerk" class="submit" onclick="Bereken(2)">
+                </p>
+                </fieldset>
+              -->
+
+
+              <!--
+                <fieldset id="fsAangifteNaarKenmerk">
+                <legend>Van aangifte-, aanslag- of beschikkingsnummer naar betalingskenmerk</legend>
+                <p>
+                <label>BSN of RSIN</label>
+                <input type="text" name="inputSofi" id="inputSofi" class="inputFinr" size="9" maxlength="9" onchange="CheckSofinummer(this.value)" onkeyup="MagSofi(this.value)" />-->
+                <!--                        <input type="text" value="" name="inputSofi" id="inputSofi" class="inputFinr" size="9" maxlength="9" onblur="CheckSofi_onblur(this.value, false);" onkeyup="event.keyCode == 13 ? CheckSofi_onblur(this.value, true) : this.value = CheckSofi(this.value)">                      </p>
+                -->
+
+                <!--
+                  <p id="pMiddelCode">
+                  <label>Selecteer een letter:</label>
+                  <select name="selectMiddelcode" id="selectMiddelcode" class="selectMiddelcode" onchange="CheckMiddelcode(this.value)">
+                  <option value="">Maak een keuze...</option>
+                  <option value="a">A</option>
+                  <option value="b">B</option>
+                  <option value="d">D</option>
+                  <option value="e">E</option>
+                  <option value="f">F</option>
+                  <option value="h">H</option>
+                  <option value="l">L</option>
+                  <option value="m">M</option>
+                  <option value="n">N</option>
+                  <option value="s">S</option>
+                  <option value="t">T</option>
+                  <option value="v">V</option>
+                  <option value="w">W</option>
+                  <option value="y">Y</option>
+                  <option value="z">Z</option>
+                  <option value="anders">Anders</option>
+                  </select>
+                  </p>
+
+                  <p id="genereer" class="clButtonLine">
+                  <label>&nbsp;</label>
+                  <input type="button" value="Geef betalingskenmerk" class="submit" onclick="Bereken(0)">
+                  </p>
+                  </fieldset>
+                -->
+
+                <fieldset id="fsInvoer2">
+                  <!--
+                    <legend>Van betalingskenmerk naar aangifte-, aanslag- of beschikkingsnummer</legend>
+                    <br/>
+                  -->
+
+                  <script>
+
+                    function foutMelding(bericht){
+                      alert(bericht);
+                    }
+
+                    $( document ).ready(function() {
+
+                      $("#zoekkenmerk").click(function(){
+
+                        let invoer = $("#invoerkenmerk").val().replace(/[\W_]+/g,'');
+                        console.log(invoer);
+                        var result = invoer.match(/[ABDEFHLMNSTVWYZ]/g);
+
+                        console.log(result);
+                        if(!result){
+                          //invoer was mogelijk een kenmerk
+                          let kenmerk = invoer.replace(/\D/g,'');
+
+                          if( kenmerk.length == 16 ){
+
+                            $("#bkVeld0").val(kenmerk.substring(0, 4));
+                            $("#bkVeld1").val(kenmerk.substring(4, 8));
+                            $("#bkVeld2").val(kenmerk.substring(8, 12));
+                            $("#bkVeld3").val(kenmerk.substring(12, 16));
+                            Bereken(1);
+                          } else {
+                            foutMelding("Het kenmerk is niet correct")
+                          }
+                        }
+                        else if(result.length == 1)  {
+                          //invoer was mogelijk een aanslagnummer
+                          let letter = result[0];
+                          let bsn = invoer.split(letter)[0];
+                          let slotcijfers = invoer.split(letter)[1];
+
+                          $("#Middelcode").val(letter.toLowerCase());
+                          $("#inputSofi").val(bsn);
+                          console.log(bsn, slotcijfers);
+
+                          let letterveld ="";
+                          if ( (letter=="A") || (letter=="B") || (letter=="D") || (letter=="E") || (letter=="F") || (letter=="L") ){
+                            letterveld ="A";
+                          } else if ( (letter=="H") || (letter=="N") || (letter=="S")){
+                            letterveld ="H";
+                          }
+                          else{
+                            letterveld = letter;
+                          }
+
+                          $("#"+letterveld).val(slotcijfers);
+                          Bereken(0)
+                        }
+                        else{
+                          foutMelding("Invoer is geen geldig kenmerk of aanslagnummer.")
+                        }
+                      });
+                    });
+
+                  </script>
+
+                  <div class="container">
+
+                    <div class="row">
+                      <div class="col-2">
+                      </div>
+                      <div class="col-8">
+                        <h1>💖 Negen Negen Blauw!</h1>
+                        <p>Rekent aanslagnummers om naar kenmerk en en visa versa.</p>
+
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-2">
+                      </div>
+                      <div class="col-8">
+                        <div class="input-group input-group-lg">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-lg">Invoer code</span>
+                          </div>
+                          <input id="invoerkenmerk" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" placeholder="type of plak hier uw aanslagnummer of belalingskenmerk">
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row mt-3">
+                      <div class="col-2">
+                      </div>
+                      <div class="col-8">
+                        <button type="button" id="zoekkenmerk" class="btn btn-primary btn-lg">Geef aangifte-, aanslag- of beschikkingsnummer</button>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  </p>
+
+                  <!--
+                    <p id="genereer2" class="clButtonLine">
+                    <label>&nbsp;</label>
+                    <input name="ok_but" type="button" value="Geef aangifte-, aanslag- of beschikkingsnummer" onclick="Bereken(1)" class="submit">
+                    </p>
+                  -->
+
+                </fieldset>
+            </div> <!-- divVragen -->
+            <div id="divResultaat" class="clBGFormulier">
+              <fieldset id="fsUitvoer">
+                <legend>Resultaat</legend>
+
+                <!-- Resultaatteksten -->
+                <div id="divResult" class="clResult">
+                  <div class="clUitkomst">
+                    <span id="spanAanslagnummer"></span>
+                    <span id="spanBetalingsKenmerk"></span>
+                  </div>
+
+                  <!--
+                    <p class="clButtonLine">
+                    <input type="button" value="Wijzigen invoer" class="submit" onclick="doOpnieuw(&#39;&#39;)">
+                    </p>
+                  -->
+                </div>
+
+                <div id="divResultGeenAanslagnummer" class="clResult">
+                  <div class="clUitkomst">
+                    <h2>Het aangifte-, aanslag- of beschikkingsnummer kan niet worden vastgesteld.</h2>
+                  </div>
+                  <!--
+                    <div class="clUitkomstExtra">
+                    <p>Neem contact op met de BelastingTelefoon: 0800-0543. Belt u vanuit het buitenland? Dan is het telefoonnummer +31 55 5 385 385.</p>
+                    </div>
+                    <p class="clButtonLine">
+                    <input type="button" value="Wijzigen invoer" class="submit" onclick="doOpnieuw(&#39;&#39;)">
+                    </p>
+                  -->
+                </div>
+
+                <div id="divResultGeenBetalingskenmerk" class="clResult">
+                  <div class="clUitkomst">
+                    <h2>Het betalingskenmerk kan niet worden vastgesteld.</h2>
+                  </div>
+                  <!--
+                    <div class="clUitkomstExtra">
+                    <p>Neem contact op met de BelastingTelefoon: 0800-0543. Belt u vanuit het buitenland? Dan is het telefoonnummer +31 55 5 385 385.</p>
+                    </div>
+                    <p class="clButtonLine">
+                    <input type="button" value="Wijzigen invoer" class="submit" onclick="doOpnieuw(&#39;&#39;)">
+                    </p>
+                  -->
+                </div>
+
+              </fieldset>
+            </div>
+            <div id="divVersie" style="display: none;"></div>
+          </div>
+
+        </div>
+
+        <p>DEBUG BETALINGSKENMERK<br>
+        <input type="text" id="bkVeld0" class="kenmerk" maxlength="4" style="width:50px;"/>
+        <input type="text" id="bkVeld1" class="kenmerk" maxlength="4" style="width:50px;"/>
+        <input type="text" id="bkVeld2" class="kenmerk" maxlength="4" style="width:50px;"/>
+        <input type="text" id="bkVeld3" class="kenmerk" maxlength="4" style="width:50px;"/>
+        </p>
+
+        <p id="restant">
+        DEBUG SLOTCIJFERS<br/>
+        <!--<input type="text" name="inputSofiMiddel" class="inputSofiMiddel" size="12" readonly="readonly"><br>-->
+        <input type="text" name="A" id="A" class="restant" size="6" maxlength="6"  onchange="RegExpAllNumeric(this.value, 6, &#39;A&#39;)"> A/B/D/E/F/L<br>
+        <input type="text" name="H" id="H" class="restant" size="4" maxlength="4"  onchange="RegExpAllNumeric(this.value, this.maxLength, &#39;H&#39;)"> H/N/S<br>
+        <input type="text" name="M" id="M" class="restant" size="6" maxlength="6"  onchange="RegExpNumeric(this.value, 6, &#39;M&#39;)"> M <br>
+        <input type="text" name="Y" id="Y" class="restant" size="6" maxlength="6"  onchange="RegExpNumeric(this.value, 6, &#39;Y&#39;)"> Y<br>
+        <input type="text" name="T" id="T" class="restant" size="7" maxlength="7"  onchange="RegExpAllNumeric(this.value, 6, &#39;T&#39;)"> T<br>
+        <input type="text" name="V" id="V" class="restant" size="6" maxlength="6"  onchange="RegExpAllNumeric(this.value, 6, &#39;V&#39;)"> V<br>
+        <input type="text" name="W" id="W" class="restant" size="3" maxlength="3"  onchange="RegExpAllNumeric(this.value, 2, &#39;W&#39;)"> W<br>
+        <input type="text" name="Z" id="Z" class="restant" size="6" maxlength="6"  onchange="RegExpAllNumeric(this.value, 6, &#39;Z&#39;)"> Z<br>
+        </p>
+
+        <p>
+        DEBUG AANSLAGNR<br/>
+        <input type="text" value=""  id="inputSofi"  maxlength="9" style="width:150px;"/> SOFI/BSN 
+        <input type="text" value="" name="Middelcode" id="Middelcode" class="kenmerk" maxlength="1" style="width:30px;"/> MIDDELCODE<br>
+        </p>
+
+
+      </form>
+
+      <script type="text/javascript" src="./assets/gen_reken_interface_func_init.js"></script>
+      <script type="text/javascript" src="./assets/gen_reken_interface_func_blauw.js"></script>
+      <script type="text/javascript" src="./assets/gen_reken_val_func_init.js"></script>
+      <script type="text/javascript" src="./assets/gen_reken_val_func_blauw.js"></script>
+      <script type="text/javascript" src="./assets/interface-old.js"></script>
+      <script type="text/javascript" src="./assets/berekening.js"></script>
+
   </body>
 </html>

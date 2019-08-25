@@ -1,26 +1,10 @@
-/*#divVersie {display: none;}*/
-
-/* Fieldsets */
+.debug{
+  display:none;
+  background-color: #dedede;
+}
+/**************************************************************************************************/
 .clInpBedrag {width:4em;}
 .clSelAantal {width:3em;}
-
-/*
-#restant {display: none;}
-#genereer {display: none;}
-#A {display: none;}
-#H {display: none;}
-#Y {display: none;}
-#T {display: none;}
-#V {display: none;}
-#W {display: none;}
-#Z {display: none;}
-#fsInvoer1 {display: none;}
-#fsInvoer2 {display: none;}
-#fsBtwLhNaarKenmerk {display: none;}
-#fsAangifteNaarKenmerk {display: none;}
-#pMiddelCode {display: none;}
-*/
-
 .radioWelke {border: none;}
 .but_wis {width: 50px; text-align: center;}
 .resultaat {width: 220px;}
@@ -40,16 +24,7 @@ fieldset p {padding-top: 5px; padding-left: 1em;}
 .restant {width: 55px;}
 #fsUitvoer {/*width: 60%; */display: none; padding: 0; margin: 0;}
 #fsUitvoer #divUitvoer {margin: 0 0 0 .75em;}
-/*#fsUitvoer #divUitvoer h1 {font-size: 80%; margin-bottom: 0;}*/
-
-/*#divResult table td {font-size:11px;}
-#divResult table caption {font-size:12px; padding-top: 0.8em;}
-*/
-
-/*#fsInvoer1 label {margin-left: 1em; width: 24em;}*/
 #fsInvoer2 label {/*margin-left: 1em;*/ width: 24em;}
 fieldset#fsInvoer1 label, fieldset#fsBtwLhNaarKenmerk label , fieldset#fsAangifteNaarKenmerk label {float: left; width: 20em;}
 * html fieldset#fsInvoer1 label {float: left; width: 20em;}
 *:first-child + html fieldset#fsInvoer1 label {float: left; width: 20em;}
-/* Einde Content */
-/**************************************************************************************************/

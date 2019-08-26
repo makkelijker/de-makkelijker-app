@@ -20,113 +20,164 @@
     <script type="text/javascript" src="./assets/interface-99-blauw.js"></script>
 
   </head>
-  <body>
+  <body class="d-flex flex-column">
 
-    <div class="container">
+    <div id="page-content">
+      <div class="container">
 
-      <form id="frmBerekening" action="" method="post" onsubmit="return false">
+        <form id="frmBerekening" action="" method="post" onsubmit="return false">
 
-        <div class="row">
-          <div class="col-12">
-            <h1>💖 Negen Negen Blauw!</h1>
-            <p>Rekent aanslagnummers om naar kenmerk en en visa versa.</p>
+          <div class="row mt-3">
+            <div class="col-12 text-center">
+              <p>Rekent aanslagnummers om naar kenmerk en visa versa.</p>
+            </div>
           </div>
-        </div>
 
-        <div class="row">
-          <div class="col-12">
-            <div class="input-group input-group-lg">
-              <div class="input-group-prepend">
-                <span class="input-group-text" id="inputGroup-sizing-lg">Invoer code</span>
+          <div class="row">
+            <div class="col-12">
+              <div class="input-group input-group-lg">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="inputGroup-sizing-lg">Invoer</span>
+                </div>
+                <input id="invoerkenmerk" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" placeholder="type of plak hier uw aanslagnummer of belalingskenmerk">
               </div>
-              <input id="invoerkenmerk" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" placeholder="type of plak hier uw aanslagnummer of belalingskenmerk">
-            </div>
-          </div>
-        </div>
 
-        <div class="row mt-3">
-          <div class="col-8">
-            <button type="button" id="zoekkenmerk" class="btn btn-primary btn-lg">Bekeren kenmerk of aanslagnummer</button>
 
-          </div>
-          <div class="col-4">
-            <div class="custom-control custom-switch">
-              <input type="checkbox" class="custom-control-input" id="toon-debug">
-              <label class="custom-control-label" for="toon-debug">Toon debug-velden</label>
             </div>
           </div>
 
-        </div>
+          <div class="row mt-3">
+            <div class="col-12 text-center">
 
-        <div class="row mt-3">
-          <div class="col-12">
+              <div class="custom-control custom-switch mb-2">
+                <input type="checkbox" class="custom-control-input" id="toon-debug">
+                <label class="custom-control-label" for="toon-debug">debug</label>
+              </div>
 
-            <div id="divResultaat" class="clBGFormulier">
-              <fieldset id="fsUitvoer">
-
-                <!-- Resultaatteksten -->
-                <div id="divResult" class="clResult">
-                  <div class="clUitkomst">
-                    <span id="spanAanslagnummer"></span>
-                    <span id="spanBetalingsKenmerk"></span>
-                  </div>
-
-                </div>
-
-                <div id="divResultGeenAanslagnummer" class="clResult">
-                  <div class="clUitkomst">
-                    <h2>Het aangifte-, aanslag- of beschikkingsnummer kan niet worden vastgesteld.</h2>
-                  </div>
-                </div>
-
-                <div id="divResultGeenBetalingskenmerk" class="clResult">
-                  <div class="clUitkomst">
-                    <h2>Het betalingskenmerk kan niet worden vastgesteld.</h2>
-                  </div>
-                </div>
-
-              </fieldset>
+              <button type="button" id="zoekkenmerk" class="btn btn-primary btn-lg">Bereken kenmerk of aanslagnummer</button>
             </div>
 
           </div>
-        </div>
 
+          <div class="row mt-5">
+            <div class="col-5">
 
-        <div class="row mt-3 debug">
-          <div class="col-2">
+              <div class="card" style="xwidth: 18rem;">
+                <div style="padding: 1.25rem;">
+                  <h4>Invoer</h4>
+                  <p class="card-text"><strong>Type:</strong> betalingskenmerk</p>
+                </div>
+                <div class="card-body" style="background-color: #FFFFCC">
+                  <input type="text" style="padding:0.25em 0 0 0.25em; font-family: 'OCR A Std'; border:0;" value="1234 4567 8901 2345" />
+                </div>
+              </div>
+
+            </div>
+
+            <div class="col-2 text-center" style="padding-top:56px;">
+                <img src="img/Line.png" border=1 />
+            </div>
+
+            <div class="col-5">
+
+              <div class="card" style="xwidth: 18rem;">
+                <div style="padding: 1.25rem;">
+                  <h4>Vertaald</h4>
+                  <p class="card-text"><strong>Type:</strong> betalingskenmerk</p>
+                </div>
+                <div class="card-body" style="background-color: #FFFFCC">
+                  <span id="spanAanslagnummer"></span>
+                  <span id="spanBetalingsKenmerk"></span>
+                </div>
+              </div>
+
+            </div>
+
+            </div>
+
           </div>
-          <div class="col-8">
-            <p>DEBUG BETALINGSKENMERK<br>
-            <input type="text" id="bkVeld0" class="kenmerk" maxlength="4" style="width:50px;"/>
-            <input type="text" id="bkVeld1" class="kenmerk" maxlength="4" style="width:50px;"/>
-            <input type="text" id="bkVeld2" class="kenmerk" maxlength="4" style="width:50px;"/>
-            <input type="text" id="bkVeld3" class="kenmerk" maxlength="4" style="width:50px;"/>
-            </p>
 
-            <p id="restant">
-            DEBUG SLOTCIJFERS<br/>
-            <!--<input type="text" name="inputSofiMiddel" class="inputSofiMiddel" size="12" readonly="readonly"><br>-->
-            <input type="text" name="A" id="A" class="restant" size="6" maxlength="6"  onchange="RegExpAllNumeric(this.value, 6, &#39;A&#39;)"> A/B/D/E/F/L<br>
-            <input type="text" name="H" id="H" class="restant" size="4" maxlength="4"  onchange="RegExpAllNumeric(this.value, this.maxLength, &#39;H&#39;)"> H/N/S<br>
-            <input type="text" name="M" id="M" class="restant" size="6" maxlength="6"  onchange="RegExpNumeric(this.value, 6, &#39;M&#39;)"> M <br>
-            <input type="text" name="Y" id="Y" class="restant" size="6" maxlength="6"  onchange="RegExpNumeric(this.value, 6, &#39;Y&#39;)"> Y<br>
-            <input type="text" name="T" id="T" class="restant" size="7" maxlength="7"  onchange="RegExpAllNumeric(this.value, 6, &#39;T&#39;)"> T<br>
-            <input type="text" name="V" id="V" class="restant" size="6" maxlength="6"  onchange="RegExpAllNumeric(this.value, 6, &#39;V&#39;)"> V<br>
-            <input type="text" name="W" id="W" class="restant" size="3" maxlength="3"  onchange="RegExpAllNumeric(this.value, 2, &#39;W&#39;)"> W<br>
-            <input type="text" name="Z" id="Z" class="restant" size="6" maxlength="6"  onchange="RegExpAllNumeric(this.value, 6, &#39;Z&#39;)"> Z<br>
-            </p>
 
-            <p>
-            DEBUG AANSLAGNR<br/>
-            <input type="text" value=""  id="inputSofi"  maxlength="9" style="width:150px;"/> SOFI/BSN 
-            <input type="text" value="" name="Middelcode" id="Middelcode" class="kenmerk" maxlength="1" style="width:30px;"/> MIDDELCODE<br>
-            </p>
+          <div class="row mt-3">
+            <div class="col-12">
+
+              <div id="divResultaat" class="clBGFormulier">
+                <fieldset id="fsUitvoer">
+
+                  <!-- Resultaatteksten -->
+                  <div id="divResult" class="clResult">
+                    <div class="clUitkomst">
+                    </div>
+
+                  </div>
+
+                  <div id="divResultGeenAanslagnummer" class="clResult">
+                    <div class="clUitkomst">
+                      <h2>Het aangifte-, aanslag- of beschikkingsnummer kan niet worden vastgesteld.</h2>
+                    </div>
+                  </div>
+
+                  <div id="divResultGeenBetalingskenmerk" class="clResult">
+                    <div class="clUitkomst">
+                      <h2>Het betalingskenmerk kan niet worden vastgesteld.</h2>
+                    </div>
+                  </div>
+
+                </fieldset>
+              </div>
+
+            </div>
           </div>
-        </div>
 
-      </form>
+
+          <div class="row mt-3 debug">
+            <div class="col-2">
+            </div>
+            <div class="col-8">
+              <p>DEBUG BETALINGSKENMERK<br>
+              <input type="text" id="bkVeld0" class="kenmerk" maxlength="4" style="width:50px;"/>
+              <input type="text" id="bkVeld1" class="kenmerk" maxlength="4" style="width:50px;"/>
+              <input type="text" id="bkVeld2" class="kenmerk" maxlength="4" style="width:50px;"/>
+              <input type="text" id="bkVeld3" class="kenmerk" maxlength="4" style="width:50px;"/>
+              </p>
+
+              <p id="restant">
+              DEBUG SLOTCIJFERS<br/>
+              <!--<input type="text" name="inputSofiMiddel" class="inputSofiMiddel" size="12" readonly="readonly"><br>-->
+              <input type="text" name="A" id="A" class="restant" size="6" maxlength="6"  onchange="RegExpAllNumeric(this.value, 6, &#39;A&#39;)"> A/B/D/E/F/L<br>
+              <input type="text" name="H" id="H" class="restant" size="4" maxlength="4"  onchange="RegExpAllNumeric(this.value, this.maxLength, &#39;H&#39;)"> H/N/S<br>
+              <input type="text" name="M" id="M" class="restant" size="6" maxlength="6"  onchange="RegExpNumeric(this.value, 6, &#39;M&#39;)"> M <br>
+              <input type="text" name="Y" id="Y" class="restant" size="6" maxlength="6"  onchange="RegExpNumeric(this.value, 6, &#39;Y&#39;)"> Y<br>
+              <input type="text" name="T" id="T" class="restant" size="7" maxlength="7"  onchange="RegExpAllNumeric(this.value, 6, &#39;T&#39;)"> T<br>
+              <input type="text" name="V" id="V" class="restant" size="6" maxlength="6"  onchange="RegExpAllNumeric(this.value, 6, &#39;V&#39;)"> V<br>
+              <input type="text" name="W" id="W" class="restant" size="3" maxlength="3"  onchange="RegExpAllNumeric(this.value, 2, &#39;W&#39;)"> W<br>
+              <input type="text" name="Z" id="Z" class="restant" size="6" maxlength="6"  onchange="RegExpAllNumeric(this.value, 6, &#39;Z&#39;)"> Z<br>
+              </p>
+
+              <p>
+              DEBUG AANSLAGNR<br/>
+              <input type="text" value=""  id="inputSofi"  maxlength="9" style="width:150px;"/> SOFI/BSN 
+              <input type="text" value="" name="Middelcode" id="Middelcode" class="kenmerk" maxlength="1" style="width:30px;"/> MIDDELCODE<br>
+              </p>
+            </div>
+          </div>
+
+        </form>
+
+      </div>
 
     </div>
+    <footer id="sticky-footer" class="">
+      <div class="container">
+        <small>Makkelijker is een open source programma van Lingewoud B.V. © 2019</small>
+
+      </div>
+
+      <div class="col-4">
+
+      </div>
+
+    </footer>
 
   </body>
 </html>

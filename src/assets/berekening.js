@@ -289,8 +289,8 @@ function Bereken(iWelkeBerekening) {
       //doTel('bld.reken.betalingskenmerk.aanslagnummer_naar_betalingskenmerk_true');
       strTemp = iControlegetal + strBetalingskenmerk;
       strUitvoer2 = strTemp.substring(0, 4) + " " + strTemp.substring(4, 8) + " " + strTemp.substring(8, 12) + " " + strTemp.substring(12);
-      document.getElementById("spanAanslagnummer").innerHTML = "<h2>Aangifte-, aanslag- of beschikkingsnummer</h2><p>" + strUitvoer1 + "</p>";
-      document.getElementById("spanBetalingsKenmerk").innerHTML = "<h2>Betalingskenmerk</h2><p>" + strUitvoer2 + "</p>";
+      document.getElementById("spanAanslagnummer").innerHTML = "" + strUitvoer1 + "";
+      document.getElementById("spanBetalingsKenmerk").innerHTML = "" + strUitvoer2 + "";
       doUitvoerResult("divResult");
     }
     // Einde aanslagnummer naar betalingskenmerk
@@ -536,7 +536,7 @@ function Bereken(iWelkeBerekening) {
         doUitvoerResult("divResultGeenAanslagnummer");
       } else {
         //doTel('bld.reken.betalingskenmerk.betalingskenmerk_naar_aanslagnummer_true');
-        document.getElementById("spanAanslagnummer").innerHTML = "<h2>Aangifte-, aanslag- of beschikkingsnummer</h2><p>" + strUitvoer3 + "</p>";
+        document.getElementById("spanAanslagnummer").innerHTML = "" + strUitvoer3 + "";
         document.getElementById("spanBetalingsKenmerk").innerHTML = "";
         doUitvoerResult("divResult");
       }

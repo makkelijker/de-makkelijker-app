@@ -1,8 +1,8 @@
 {
-  "name": "nummers-in-blauw",
-  "productName": "nummers-in-blauw",
+  "name": "Makkelijker",
+  "productName": "Makkelijker",
   "version": "0.2.0",
-  "description": "My Electron application description",
+  "description": "Belastinghulp. Rekent aanslagnummers om naar kenmerk of visa versa.",
   "main": "src/index.js",
   "scripts": {
     "start": "electron-forge start",
@@ -20,13 +20,13 @@
   "config": {
     "forge": {
       "packagerConfig": {
-        "icon": "src/img/icon.icns"
+        "icon": "src/img/makkelijker.icns"
       },
       "makers": [
         {
           "name": "@electron-forge/maker-squirrel",
           "config": {
-            "name": "nummers_in_blauw"
+            "name": "makkelijker"
           }
         },
         {

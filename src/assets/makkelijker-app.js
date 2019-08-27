@@ -1,9 +1,38 @@
+
+
 Vue.component('code-invoer', {
   props:{
     title: String,
-    nummer: String
+    nummer: String,
+    placeholder: String,
+  },
+   methods: {
+    submit: function (event) {
+      lijmcodeBereken(event.target.value);
+    }
+   },
+    data: function () {
+    return {
+      invoerRaw: ""
+    }
   },
   template: `
+      <div class="input-group input-group-lg">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="inputGroup-sizing-lg">Invoer</span>
+        </div>
+        <input
+          id="invoerkenmerk"
+          type="text"
+          class="form-control"
+
+          v-model="invoerRaw"
+          v-on:keyup.13="submit"
+
+          aria-label="Sizing example input"
+          aria-describedby="inputGroup-sizing-lg"
+          placeholder="type of plak hier uw aanslagnummer of belalingskenmerk">
+      </div>
     `
 })
 

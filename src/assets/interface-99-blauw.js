@@ -2,7 +2,6 @@ function foutMelding(bericht){
   alert(bericht);
 }
 
-
 $( document ).ready(function() {
 
   $("#toon-debug").change(function(){

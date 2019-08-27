@@ -1,19 +1,35 @@
-
-
 Vue.component('code-invoer', {
   props:{
     title: String,
     nummer: String,
     placeholder: String,
   },
-   methods: {
-    submit: function (event) {
+  methods: {
+    versturen: function (event) {
       lijmcodeBereken(event.target.value);
     }
-   },
-    data: function () {
+  },
+  watch: {
+    invoerRauw: function(){
+
+      var typeInvoer = voorspelInvoerType( normaliseerInvoer(event.target.value));
+
+      store.setStoreKey('typeInvoer', typeInvoer);
+      store.setStoreKey('invoerRauw', this.invoerRauw);
+
+      if( typeInvoer =='kenmerk'){
+        store.setStoreKey('invoerEenVanBeideGeformatteerd', formatteerKenmerk(this.invoerRauw));
+        lijmcodeBereken(this.invoerRauw);
+      }
+      else if( typeInvoer =='aanslagnummer'){
+        store.setStoreKey('invoerEenVanBeideGeformatteerd', this.invoerRauw);
+        lijmcodeBereken(this.invoerRauw);
+      }
+    }
+  },
+  data: function () {
     return {
-      invoerRaw: ""
+      invoerRauw: ""
     }
   },
   template: `
@@ -22,12 +38,13 @@ Vue.component('code-invoer', {
           <span class="input-group-text" id="inputGroup-sizing-lg">Invoer</span>
         </div>
         <input
+
           id="invoerkenmerk"
           type="text"
           class="form-control"
 
-          v-model="invoerRaw"
-          v-on:keyup.13="submit"
+          v-model="invoerRauw"
+          v-on:keyup.13="versturen"
 
           aria-label="Sizing example input"
           aria-describedby="inputGroup-sizing-lg"
@@ -39,7 +56,7 @@ Vue.component('code-invoer', {
 Vue.component('kenmerk-kaart', {
   props:{
     title: String,
-    nummer: String
+    nummerkenmerk: String
   },
   template: `
     <div class="card">
@@ -48,7 +65,7 @@ Vue.component('kenmerk-kaart', {
         <p class="card-text"><strong>Type:</strong> betalingskenmerk</p>
       </div>
       <div class="card-body text-center" style="background-color: #FFFFCC">
-       <input type="text" class="ocr" v-model="nummer" />
+       <input type="text" class="ocr" v-model="nummerkenmerk" />
       </div>
     </div>
     `
@@ -57,7 +74,7 @@ Vue.component('kenmerk-kaart', {
 Vue.component('aanslag-kaart', {
   props:{
     title: String,
-    nummer: String
+    nummeraanslag: String
   },
   template: `
     <div class="card">
@@ -66,7 +83,7 @@ Vue.component('aanslag-kaart', {
         <p class="card-text"><strong>Type:</strong> aanslagnummer</p>
       </div>
       <div class="card-body text-center" style="background-color: #61749F">
-      <input type="text" class="no-ocr" v-model="nummer" />
+      <input type="text" class="no-ocr" v-model="nummeraanslag" />
       </div>
     </div>
     `
@@ -74,26 +91,45 @@ Vue.component('aanslag-kaart', {
 
 Vue.component('invoerkaart', {
   props:{
-    type: String
+    type: String,
+    nummer: String
   },
+
   template: `
     <div id="invoerkaart">
       <template v-if="type === 'kenmerk'">
-        <kenmerk-kaart title="Invoer" nummer="1160 2505 8560 2240">
+        <kenmerk-kaart title="Invoer" :nummerkenmerk="nummer">
         </kenmerk-kaart>
       </template>
+
+      <template v-if="type === 'aanslagnummer'">
+        <aanslag-kaart title="Invoer" :nummeraanslag="nummer">
+        </aanslag-kaart>
+      </template>
+
     </div>
   `
 })
 
 Vue.component('vertaalkaart', {
   props: {
-    type: String
+    type: String,
+  },
+  computed: {
+    nummer: function(){
+      return "een nummer";
+    }
+
   },
   template: `
     <div id="vertaalkaart">
+      <template v-if="type === 'kenmerk'">
+        <kenmerk-kaart title="Vertaald" :nummerkenmerk="nummer">
+        </kenmerk-kaart>
+      </template>
+
       <template v-if="type === 'aanslagnummer'">
-        <aanslag-kaart title="Vertaald" nummer="xx1">
+        <aanslag-kaart title="Vertaald" :nummeraanslag="nummer">
         </aanslag-kaart>
       </template>
     </div>
@@ -101,5 +137,29 @@ Vue.component('vertaalkaart', {
 })
 
 var app = new Vue({
-  el: '#app'
+  el: '#app',
+  data() {
+    return {
+      storeState: store.state
+    };
+  },
+  computed: {
+    // a computed getter
+    typeUitvoer: function() {
+      if(this.storeState.typeInvoer == 'kenmerk'){
+        return 'aanslagnummer';
+      }
+      else if(this.storeState.typeInvoer == 'aanslagnummer'){
+        return 'kenmerk';
+      }
+    },
+    formStatus: function () {
+      if(this.storeState.typeInvoer != 'onbruikbaar'){
+        return 'gebruikt';
+      }
+      else{
+        return 'leeg';
+      }
+    }
+  }
 })

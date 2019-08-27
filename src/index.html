@@ -19,11 +19,13 @@
 
     <script type="text/javascript" src="./assets/interface-99-blauw.js"></script>
 
+    <script src="https://unpkg.com/vue"></script>
+
   </head>
   <body class="d-flex flex-column">
 
     <div id="page-content">
-      <div class="container">
+      <div class="container" id="app">
 
         <form id="frmBerekening" action="" method="post" onsubmit="return false">
 
@@ -35,13 +37,13 @@
 
           <div class="row">
             <div class="col-12">
+
               <div class="input-group input-group-lg">
                 <div class="input-group-prepend">
                   <span class="input-group-text" id="inputGroup-sizing-lg">Invoer</span>
                 </div>
                 <input id="invoerkenmerk" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" placeholder="type of plak hier uw aanslagnummer of belalingskenmerk">
               </div>
-
 
             </div>
           </div>
@@ -60,18 +62,9 @@
           </div>
 
           <div class="row mt-5">
+
             <div class="col-5">
-
-              <div class="card" style="xwidth: 18rem;">
-                <div style="padding: 1.25rem;">
-                  <h4>Invoer</h4>
-                  <p class="card-text"><strong>Type:</strong> betalingskenmerk</p>
-                </div>
-                <div class="card-body" style="background-color: #FFFFCC">
-                  <input type="text" style="padding:0.25em 0 0 0.25em; font-family: 'OCR A Std'; border:0;" value="1160 2505 8560 2240" />
-                </div>
-              </div>
-
+              <invoerkaart type="kenmerk"></invoerkaart>
             </div>
 
             <div class="col-2 text-center" style="padding-top:56px;">
@@ -79,21 +72,12 @@
             </div>
 
             <div class="col-5">
-
-              <div class="card" style="xwidth: 18rem;">
-                <div style="padding: 1.25rem;">
-                  <h4>Vertaald</h4>
-                  <p class="card-text"><strong>Type:</strong> betalingskenmerk</p>
-                </div>
-                <div class="card-body" style="background-color: #61749F">
-                  <span id="spanAanslagnummer"></span>
-                  <span id="spanBetalingsKenmerk"></span>
-                </div>
-              </div>
+              <vertaalkaart type="aanslagnummer"></vertaalkaart>
+              <span id="spanAanslagnummer"></span>
+              <span id="spanBetalingsKenmerk"></span>
             </div>
-          </div>
-      </div>
 
+          </div>
       <div class="row mt-3">
         <div class="col-12">
 
@@ -175,6 +159,8 @@
       </div>
 
     </footer>
+
+    <script src="assets/makkelijker-app.js"></script>
 
   </body>
 </html>

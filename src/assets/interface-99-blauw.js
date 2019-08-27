@@ -6,7 +6,6 @@ $( document ).ready(function() {
 
   $("#toon-debug").change(function(){
     if ( $("#toon-debug").is(":checked")){
-      console.log('Hal.l;');
       $(".debug").show();
     }
     else{

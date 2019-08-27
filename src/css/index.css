@@ -27,15 +27,16 @@ body {
 
 .no-ocr{
   font-family: 'Arial';
-  font-size: 130%;
+  font-size: 100%;
   padding:0.25em 0.5em;
   border:0;
-  width: 90%;
+  width: 100%;
 }
+
 .ocr{
   font-family: 'OCR A Std';
-  font-size: 130%;
+  font-size: 100%;
   padding:0.25em 0 0 0.25em; 
   border:0;
-  width: 90%;
+  width: 100%;
 }

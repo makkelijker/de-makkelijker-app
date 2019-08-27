@@ -20,10 +20,8 @@ function lijmcodeGeefKenmerk(uitvoer){
 function lijmcodeBereken(invoerRauw){
 
   let invoer = $("#invoerkenmerk").val().replace(/[\W_]+/g,'');
-  console.log(invoer);
   var result = invoer.match(/[ABDEFHLMNSTVWYZ]/g);
 
-  console.log(result);
   if(!result){
     let kenmerk = invoer.replace(/\D/g,'');
 
@@ -47,7 +45,6 @@ function lijmcodeBereken(invoerRauw){
 
     $("#Middelcode").val(letter.toLowerCase());
     $("#inputSofi").val(bsn);
-    console.log(bsn, slotcijfers);
 
     let letterveld ="";
     if ( (letter=="A") || (letter=="B") || (letter=="D") || (letter=="E") || (letter=="F") || (letter=="L") ){

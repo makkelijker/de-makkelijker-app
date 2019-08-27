@@ -7,6 +7,12 @@ Vue.component('code-invoer', {
   methods: {
     versturen: function (event) {
       lijmcodeBereken(event.target.value);
+    },
+    focusInput() {
+      const input = document.getElementById('invoerkenmerk');
+      
+      //this.$refs.invoerveld.$el.focus();
+      input.focus();
     }
   },
   watch: {
@@ -33,31 +39,37 @@ Vue.component('code-invoer', {
       invoerRauw: ""
     }
   },
+  mounted() {
+    this.focusInput();
+  },
   template: `
-      <div class="input-group input-group-lg">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="inputGroup-sizing-lg">Invoer</span>
-        </div>
-        <input
-
-          id="invoerkenmerk"
-          type="text"
-          class="form-control"
-
-          v-model="invoerRauw"
-          v-on:keyup.13="versturen"
-
-          aria-label="Sizing example input"
-          aria-describedby="inputGroup-sizing-lg"
-          placeholder="type of plak hier uw aanslagnummer of belalingskenmerk">
+    <div class="input-group input-group-lg">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="inputGroup-sizing-lg">Invoer</span>
       </div>
+      <input
+
+        ref="invoerveld"
+
+        id="invoerkenmerk"
+        type="text"
+        class="form-control"
+
+        v-model="invoerRauw"
+        v-on:keyup.13="versturen"
+
+        aria-label="Sizing example input"
+        aria-describedby="inputGroup-sizing-lg"
+        placeholder="type of plak hier uw aanslagnummer of belalingskenmerk">
+    </div>
     `
 })
 
 Vue.component('kenmerk-kaart', {
   props:{
     title: String,
-    nummerkenmerk: String
+    nummerkenmerk: String,
+    tabindex: String
   },
   data() {
     return {
@@ -84,7 +96,7 @@ Vue.component('kenmerk-kaart', {
      <div v-if="vertaalFoutMelding!=''" class="alert alert-danger" role="alert">
        {{vertaalFoutMelding}}
      </div>
-       <input type="text" class="ocr" v-model="nummerkenmerk" v-else/>
+       <input type="text" class="ocr" :tabindex="tabindex" v-model="nummerkenmerk" v-else/>
       </div>
     </div>
     `
@@ -93,7 +105,8 @@ Vue.component('kenmerk-kaart', {
 Vue.component('aanslag-kaart', {
   props:{
     title: String,
-    nummeraanslag: String
+    nummeraanslag: String,
+    tabindex: String
   },
   data() {
     return {
@@ -120,7 +133,7 @@ Vue.component('aanslag-kaart', {
      <div v-if="vertaalFoutMelding!=''" class="alert alert-danger" role="alert">
        {{vertaalFoutMelding}}
      </div>
-      <input type="text" class="no-ocr" v-model="nummeraanslag" v-else />
+      <input type="text" class="no-ocr" :tabindex="tabindex" v-model="nummeraanslag" v-else />
       </div>
     </div>
     `
@@ -134,12 +147,12 @@ Vue.component('invoerkaart', {
   template: `
     <div id="invoerkaart">
       <template v-if="type === 'kenmerk'">
-        <kenmerk-kaart title="Invoer" :nummerkenmerk="nummer">
+        <kenmerk-kaart tabindex="-1" title="Invoer" :nummerkenmerk="nummer">
         </kenmerk-kaart>
       </template>
 
       <template v-if="type === 'aanslagnummer'">
-        <aanslag-kaart title="Invoer" :nummeraanslag="nummer">
+        <aanslag-kaart tabindex="-1" title="Invoer" :nummeraanslag="nummer">
         </aanslag-kaart>
       </template>
 

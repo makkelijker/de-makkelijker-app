@@ -13,9 +13,6 @@ $( document ).ready(function() {
     }
   });
 
-  $("#zoekkenmerk").click(function(){
-    lijmcodeBereken($("#invoerkenmerk").val());
-  });
 });
 
 

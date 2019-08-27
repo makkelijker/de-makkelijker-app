@@ -6,18 +6,20 @@ var store = {
     invoerAanslagnummer: {
       bsn: '',
       middelcode: '',
-      slotnummers: ''
+      slotnummers: '',
+      compleet: ''
     },
 
     invoerEenVanBeideGeformatteerd: '',
-    //invoerKenmerk: '',
 
     uitvoerAanslagnummer: {
       bsn: '',
       middelcode: '',
-      slotnummers: ''
+      slotnummers: '',
+      compleet: ''
     },
     uitvoerKenmerk: '',
+    vertaalStatus: ''
   },
 
   clearInvoerAction() {
@@ -25,7 +27,9 @@ var store = {
     this.state.uitvoerAanslagnummer = {
       bsn: '',
       middelcode: '',
-      slotnummers
+      slotnummers: '',
+      compleet: ''
+
     }
   },
 
@@ -34,7 +38,8 @@ var store = {
     this.state.uitvoerAanslagnummer = {
       bsn: '',
       middelcode: '',
-      slotnummers
+      slotnummers: '',
+      compleet: ''
     }
   },
 

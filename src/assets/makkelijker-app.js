@@ -16,6 +16,7 @@ Vue.component('code-invoer', {
 
       store.setStoreKey('typeInvoer', typeInvoer);
       store.setStoreKey('invoerRauw', this.invoerRauw);
+      store.setStoreKey('vertaalStatus', '');
 
       if( typeInvoer =='kenmerk'){
         store.setStoreKey('invoerEenVanBeideGeformatteerd', formatteerKenmerk(this.invoerRauw));
@@ -58,14 +59,32 @@ Vue.component('kenmerk-kaart', {
     title: String,
     nummerkenmerk: String
   },
+  data() {
+    return {
+      storeState: store.state
+    };
+  },
+  computed:{
+    vertaalFoutMelding: function(){
+      if( this.storeState.vertaalStatus == 'foutInvoerKenmerk' ){
+        return 'Het kenmerk kan niet worden vastgesteld.';
+      }
+      else{
+        return '';
+      }
+    }
+  },
   template: `
     <div class="card">
       <div style="padding: 1.25rem;">
         <h4>{{ title }}</h4>
         <p class="card-text"><strong>Type:</strong> betalingskenmerk</p>
       </div>
-      <div class="card-body text-center" style="background-color: #FFFFCC">
-       <input type="text" class="ocr" v-model="nummerkenmerk" />
+      <div class="card-body" style="background-color: #FFFFCC">
+     <div v-if="vertaalFoutMelding!=''" class="alert alert-danger" role="alert">
+       {{vertaalFoutMelding}}
+     </div>
+       <input type="text" class="ocr" v-model="nummerkenmerk" v-else/>
       </div>
     </div>
     `
@@ -76,14 +95,32 @@ Vue.component('aanslag-kaart', {
     title: String,
     nummeraanslag: String
   },
+  data() {
+    return {
+      storeState: store.state
+    };
+  },
+  computed:{
+    vertaalFoutMelding: function(){
+      if( this.storeState.vertaalStatus == 'foutInvoerAanslag' ){
+        return 'Het aangifte-, aanslag- of beschikkingsnummer kan niet worden vastgesteld.';
+      }
+      else{
+        return '';
+      }
+    }
+  },
   template: `
     <div class="card">
       <div style="padding: 1.25rem;">
         <h4>{{ title }}</h4>
         <p class="card-text"><strong>Type:</strong> aanslagnummer</p>
       </div>
-      <div class="card-body text-center" style="background-color: #61749F">
-      <input type="text" class="no-ocr" v-model="nummeraanslag" />
+      <div class="card-body" style="background-color: #61749F">
+     <div v-if="vertaalFoutMelding!=''" class="alert alert-danger" role="alert">
+       {{vertaalFoutMelding}}
+     </div>
+      <input type="text" class="no-ocr" v-model="nummeraanslag" v-else />
       </div>
     </div>
     `
@@ -94,7 +131,6 @@ Vue.component('invoerkaart', {
     type: String,
     nummer: String
   },
-
   template: `
     <div id="invoerkaart">
       <template v-if="type === 'kenmerk'">
@@ -115,11 +151,20 @@ Vue.component('vertaalkaart', {
   props: {
     type: String,
   },
+  data() {
+    return {
+      storeState: store.state
+    };
+  },
   computed: {
     nummer: function(){
-      return "een nummer";
+      if(this.storeState.typeInvoer == 'kenmerk'){
+        return this.storeState.uitvoerAanslagnummer.compleet;
+      }
+      else if(this.storeState.typeInvoer == 'aanslagnummer'){
+        return this.storeState.uitvoerKenmerk;
+      }
     }
-
   },
   template: `
     <div id="vertaalkaart">
@@ -144,7 +189,6 @@ var app = new Vue({
     };
   },
   computed: {
-    // a computed getter
     typeUitvoer: function() {
       if(this.storeState.typeInvoer == 'kenmerk'){
         return 'aanslagnummer';
@@ -160,6 +204,26 @@ var app = new Vue({
       else{
         return 'leeg';
       }
+    },
+    vertaalStatus: function(){
+
+      if( this.storeState.vertaalStatus != '' ){
+        return 'fout';
+      }
+      else{
+        return '';
+      }
+
+    },
+    vertaalFoutMelding: function(){
+
+      if( this.storeState.vertaalStatus == 'foutInvoerKenmerkOfAanslag' ){
+        return 'De invoer is geen geldig betalingskenmerk of aangifte-, aanslag- of beschikkingsnummer.';
+      }
+      else{
+        return '';
+      }
+
     }
   }
 })

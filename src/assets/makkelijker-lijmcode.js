@@ -1,3 +1,22 @@
+function lijmcodeResetVertaaldeNummers(){
+  document.getElementById("spanAanslagnummer").innerHTML = "";
+  document.getElementById("spanBetalingsKenmerk").innerHTML = "";
+}
+
+function lijmcodeGeefAanslagnummer(uitvoer, sofi, middel, slotnummers){
+  document.getElementById("spanAanslagnummer").innerHTML = uitvoer;
+
+  store.setStoreKeyUitvoerAanslagnummer('bsn',sofi);
+  store.setStoreKeyUitvoerAanslagnummer('middelcode',middel);
+  store.setStoreKeyUitvoerAanslagnummer('slotnummer',slotnummers);
+  store.setStoreKeyUitvoerAanslagnummer('compleet',uitvoer);
+}
+
+function lijmcodeGeefKenmerk(uitvoer){
+  document.getElementById("spanBetalingsKenmerk").innerHTML = uitvoer;
+  store.setStoreKey('uitvoerKenmerk',uitvoer);
+}
+
 function lijmcodeBereken(invoerRauw){
 
   let invoer = $("#invoerkenmerk").val().replace(/[\W_]+/g,'');
@@ -6,7 +25,6 @@ function lijmcodeBereken(invoerRauw){
 
   console.log(result);
   if(!result){
-    //invoer was mogelijk een kenmerk
     let kenmerk = invoer.replace(/\D/g,'');
 
     if( kenmerk.length == 16 ){
@@ -17,7 +35,8 @@ function lijmcodeBereken(invoerRauw){
       $("#bkVeld3").val(kenmerk.substring(12, 16));
       Bereken(1);
     } else {
-      foutMelding("Het kenmerk is niet correct")
+
+      store.setStoreKey('vertaalStatus','foutInvoerKenmerkOfAanslag');
     }
   }
   else if(result.length == 1)  {
@@ -44,7 +63,7 @@ function lijmcodeBereken(invoerRauw){
     Bereken(0)
   }
   else{
-    foutMelding("Invoer is geen geldig kenmerk of aanslagnummer.")
+    store.setStoreKey('vertaalStatus','foutInvoerKenmerkOfAanslag');
   }
 }
 

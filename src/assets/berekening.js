@@ -6,7 +6,8 @@ var sMiddelCode;
 var sSubnr;
 
 function Bereken(iWelkeBerekening) {
-  SluitHelp();
+  //SluitHelp();
+
   if (iWelkeBerekening == 0) { // Van aanslagnummer naar betalingskenmerk
     var strTemp = "";
     var strSofi = document.getElementById("frmBerekening").inputSofi.value;
@@ -282,16 +283,16 @@ function Bereken(iWelkeBerekening) {
     }
     strTemp = iControlegetal + strBetalingskenmerk;
     if (strTemp.indexOf("NaN") > -1 || strTemp.length != 16) {
-      //doTel('bld.reken.betalingskenmerk.aanslagnummer_naar_betalingskenmerk_false');
-      doUitvoerResult("divResultGeenAanslagnummer");
-      //document.getElementById("fsUitvoer").style.display = 'none';
+
+      store.setStoreKey('vertaalStatus','foutInvoerAanslag');
+
     } else {
-      //doTel('bld.reken.betalingskenmerk.aanslagnummer_naar_betalingskenmerk_true');
       strTemp = iControlegetal + strBetalingskenmerk;
       strUitvoer2 = strTemp.substring(0, 4) + " " + strTemp.substring(4, 8) + " " + strTemp.substring(8, 12) + " " + strTemp.substring(12);
-      document.getElementById("spanAanslagnummer").innerHTML = "" + strUitvoer1 + "";
-      document.getElementById("spanBetalingsKenmerk").innerHTML = "" + strUitvoer2 + "";
-      doUitvoerResult("divResult");
+
+      lijmcodeResetVertaaldeNummers();
+      lijmcodeGeefKenmerk(strUitvoer2);
+
     }
     // Einde aanslagnummer naar betalingskenmerk
   } else if (iWelkeBerekening == 1) {
@@ -531,18 +532,19 @@ function Bereken(iWelkeBerekening) {
           var strUitvoer3 = MaakSofiOp(stripString(strSofi, "0")) + "." + strMiddelcode + "." + strJaar + strVolgnummer + "." + "8";
         }
       }
+
       if (strMiddelcode == "") {
-        //doTel('bld.reken.betalingskenmerk.betalingskenmerk_naar_aanslagnummer_false');
-        doUitvoerResult("divResultGeenAanslagnummer");
+
+        store.setStoreKey('vertaalStatus','foutInvoerAanslag');
+
       } else {
-        //doTel('bld.reken.betalingskenmerk.betalingskenmerk_naar_aanslagnummer_true');
-        document.getElementById("spanAanslagnummer").innerHTML = "" + strUitvoer3 + "";
-        document.getElementById("spanBetalingsKenmerk").innerHTML = "";
-        doUitvoerResult("divResult");
+
+        lijmcodeResetVertaaldeNummers();
+        lijmcodeGeefAanslagnummer(strUitvoer3);
+
       }
     } else {
-      //doTel('bld.reken.betalingskenmerk.betalingskenmerk_naar_aanslagnummer_false');
-      alert("Betalingskenmerk onjuist");
+      store.setStoreKey('vertaalStatus','foutInvoerKenmerk');
     }
   } else if (iWelkeBerekening == 2) {
     // Van btw-nummer of loonheffingennummer naar betalingskenmerk
@@ -610,9 +612,10 @@ function Bereken(iWelkeBerekening) {
       }
     }
 
-    document.getElementById("spanAanslagnummer").innerHTML = sHTML;
-    document.getElementById("spanBetalingsKenmerk").innerHTML = "";
-    doUitvoerResult("divResult");
+    lijmcodeResetVertaaldeNummers();
+    lijmcodeGeefAanslagnummer(sHTML);
+
+    //doUitvoerResult("divResult");
 
   }
 }
@@ -690,7 +693,6 @@ function checkRestant(strWaarde, iPosities) {
   }
 
 
-  // alert (isNummer(strWaarde) + " - " + strWaarde.length +  " - " + iPosities)
 
   if (isNummer(strWaarde) && strWaarde.length >= iPosities) {
     document.getElementById("genereer").style.display = "block";	// Toon buttons
@@ -736,7 +738,6 @@ function CheckSofi(sSofi) {
           document.getElementById("restant").style.display = "none";
           document.getElementById("genereer").style.display = "none";
           toonDivs("", "divResult", "fsUitvoer", "");
-          //					alert("Sofinummer onjuist");
         }
       }
     } else {

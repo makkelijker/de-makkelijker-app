@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
 
-    <title>Nummers in blauw</title>
+    <title>Makkelijker</title>
     <link rel="stylesheet" href="lib/bootstrap.min.css" />
     <link title="Standaard" rel="stylesheet" type="text/css" href="css/content-ih.css" media="screen" />
     <link rel="stylesheet" href="css/index.css">
@@ -58,28 +58,34 @@
                 <invoerkaart :type="storeState.typeInvoer" :nummer="storeState.invoerEenVanBeideGeformatteerd"></invoerkaart>
               </div>
 
-              <div class="col-2 text-center" style="padding-top:56px;">
+              <div class="col-2 text-center" style="padding-top:56px;"  v-if="vertaalStatus==''">
                 <img src="img/Line.png" />
               </div>
 
-              <div class="col-5">
+              <div class="col-5" v-if="vertaalStatus==''">
                 <vertaalkaart :type="typeUitvoer"></vertaalkaart>
               </div>
+
 
             </div>
           </div>
 
+          <div class="row mt-3" v-if="vertaalFoutMelding!=''">
+            <div class="col-12">
+              <div class="alert alert-warning" role="alert">
+                {{vertaalFoutMelding}}
+              </div>
+            </div>
+          </div>
+
+          <!--
           <div class="row mt-3">
             <div class="col-12">
 
               <div id="divResultaat" class="clBGFormulier">
                 <fieldset id="fsUitvoer">
 
-                  <span id="spanAanslagnummer"></span>
-                  <span id="spanBetalingsKenmerk"></span>
 
-
-                  <!-- Resultaatteksten -->
                   <div id="divResult" class="clResult">
                     <div class="clUitkomst">
                     </div>
@@ -103,12 +109,18 @@
 
             </div>
           </div>
+          -->
 
           <div class="row mt-3 debug">
             <div class="col-2">
             </div>
             <div class="col-8">
-              <p>DEBUG BETALINGSKENMERK<br>
+
+              <h5>DEBUG RESULTAAT</h5>
+              <span id="spanAanslagnummer"></span>
+              <span id="spanBetalingsKenmerk"></span>
+
+              <h5>DEBUG BETALINGSKENMERK</h5>
               <input type="text" id="bkVeld0" class="kenmerk" maxlength="4" style="width:50px;"/>
               <input type="text" id="bkVeld1" class="kenmerk" maxlength="4" style="width:50px;"/>
               <input type="text" id="bkVeld2" class="kenmerk" maxlength="4" style="width:50px;"/>
@@ -116,7 +128,7 @@
               </p>
 
               <p id="restant">
-              DEBUG SLOTCIJFERS<br/>
+              <h5>DEBUG SLOTCIJFERS</h5>
               <!--<input type="text" name="inputSofiMiddel" class="inputSofiMiddel" size="12" readonly="readonly"><br>-->
               <input type="text" name="A" id="A" class="restant" size="6" maxlength="6"  onchange="RegExpAllNumeric(this.value, 6, &#39;A&#39;)"> A/B/D/E/F/L<br>
               <input type="text" name="H" id="H" class="restant" size="4" maxlength="4"  onchange="RegExpAllNumeric(this.value, this.maxLength, &#39;H&#39;)"> H/N/S<br>
@@ -128,9 +140,8 @@
               <input type="text" name="Z" id="Z" class="restant" size="6" maxlength="6"  onchange="RegExpAllNumeric(this.value, 6, &#39;Z&#39;)"> Z<br>
               </p>
 
-              <p>
-              DEBUG AANSLAGNR<br/>
-              <input type="text" value=""  id="inputSofi"  maxlength="9" style="width:150px;"/> SOFI/BSN 
+              <h5>DEBUG AANSLAGNR</h5>
+              <input type="text" value=""  id="inputSofi"  maxlength="9" style="width:150px;"/> SOFI/BSN
               <input type="text" value="" name="Middelcode" id="Middelcode" class="kenmerk" maxlength="1" style="width:30px;"/> MIDDELCODE<br>
               </p>
             </div>

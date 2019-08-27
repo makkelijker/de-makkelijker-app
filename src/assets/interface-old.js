@@ -1,61 +1,3 @@
-//var sVersie= "1.39.06.01";
-//
-//
-  /*
-function initVersie(){
-  //addHtml()
-  document.getElementById("divVersie").innerHTML = '<p>Versie: ' + sVersie + '</p>'
-}
-*/
-/*
-function doKeuzeChange(strWaarde) {
-  SluitHelp();
-  document.getElementById("frmBerekening").reset();
-    //document.getElementById("restant").style.display = 'none';
-  document.getElementById("genereer").style.display = 'none';
-  document.getElementById("BtwLhGenereer").style.display = 'none';
-  document.getElementById("fsInvoer1").style.display = 'none';
-  document.getElementById("fsInvoer2").style.display = 'none';
-  document.getElementById("fsBtwLhNaarKenmerk").style.display = 'none';
-    //  document.getElementById("fsAangifteNaarKenmerk").style.display = 'none';
-  document.getElementById("fsUitvoer").style.display = 'none';
-  document.getElementById("divResultaat").style.display = 'none';
-
-  if (strWaarde=="aanslagNAARkenmerk") {
-    document.getElementById("fsInvoer1").style.display = 'block';
-    document.getElementById("radioNaarKenmerk").checked = true;
-  } else {
-    document.getElementById("fsInvoer2").style.display = 'block';
-    document.getElementById("radioNaarAanslag").checked = true;
-  }
-
-  return true;
-}
-*/
-
-/*
-function doKeuzeNaarKenmerkChange(oThis) {
-  var sKeuze = oThis.value;
-  document.getElementById("frmBerekening").reset();
-  document.getElementById("radioNaarKenmerk").checked = true;
-  if (oThis.value=="aangifteNAARkenmerk") {
-    document.getElementById("radioAangifte").checked = true;
-    $("#pMiddelCode").hide();
-    $("#restant").hide();
-    document.getElementById("fsBtwLhNaarKenmerk").style.display = 'none';
-    document.getElementById("fsAangifteNaarKenmerk").style.display = 'block';
-  } else if (oThis.value=="btwlhNAARkenmerk") {
-    document.getElementById("radioBtwLh").checked = true;
-    $("#BtwLhJaar").hide();
-    $("#BtwLhFrequentie").hide();
-    $('#BtwLhAangiftetijdvak').hide();
-    vulBtwLhFrequentie();
-    document.getElementById("fsAangifteNaarKenmerk").style.display = 'none';
-    document.getElementById("fsBtwLhNaarKenmerk").style.display = 'block';
-  }
-  return true;
-}
-*/
 
 var sVorigBtwLh = "";
 function CheckBtwLh(oThis, bAlert) {
@@ -265,6 +207,7 @@ function doBtwLhAangiftetijdvak(oThis){
   }
 }
 
+  /*
 function CheckMiddelcode(strMiddelcode) {
   verbergDivVraag();
   var strMiddelKeuze = "";
@@ -310,6 +253,7 @@ function CheckMiddelcode(strMiddelcode) {
   //		}
   SetFocus(strMiddelKeuze);
 }
+*/
 
 function verbergDivHelp() {
   document.getElementById("divHelpStartTekst").style.visibility = "hidden";
